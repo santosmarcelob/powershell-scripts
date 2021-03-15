@@ -1,7 +1,10 @@
 # POWERSHELL AD ACCESS MANAGEMENT
 
 # 1) Get Folder Permissions (ACL)
+
+
 function Validation { 
+
     $folder_path = Read-Host "Enter folder path"
 
 	(get-acl $folder_path).access | ft IdentityReference,FileSystemRights,AccessControlType,IsInherited,InheritanceFlags -AutoSize
@@ -24,6 +27,7 @@ function Validation {
 
     Action
 }
+
 function AddUserAccess {
     $UserID = Read-Host "Enter User ID"
     $ADGroup = Read-Host "Enter AD Group"
@@ -36,14 +40,16 @@ function AddUserAccess {
 
 
 function Action {
-$Action = Read-Host "Type the action to perform:`n (1 - Validation | 2 - AddUserAccess | 3 - Exit"
+    $Action = Read-Host "Type the action to perform:`n (1 - Validation | 2 - AddUserAccess | 3 - Exit"
+    
+    switch ($Action) {
+        1 { Validation}
+        2 { AddUserAccess}
+        3 { exit}
+    }
 }
 
 Action
 
-switch ($Action) {
-    1 {Validation}
-    2 {AddUserAccess}
-    3 {Write-Host "Bye"
-       exit}
-}
+
+
